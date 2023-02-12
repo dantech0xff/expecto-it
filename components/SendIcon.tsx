@@ -1,4 +1,16 @@
-export const SendIcon = ({
+import React from "react";
+
+interface Props {
+	fill?: string;
+	filled?: boolean;
+	size?: number;
+	height?: number;
+	width?: number;
+	label?: string;
+	className?: string;
+}
+
+export const SendIcon: React.FC<Props> = ({
 	fill = "currentColor",
 	filled,
 	size,

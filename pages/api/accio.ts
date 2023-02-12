@@ -33,6 +33,6 @@ export default async function handler(
 		console.log(response.data);
 		res.status(200).json({ generatedText });
 	} catch (error) {
-		res.status(500).json({ error: error.message });
+		res.status(500).json({ error: error });
 	}
 }

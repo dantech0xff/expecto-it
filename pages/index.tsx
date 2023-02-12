@@ -1,11 +1,6 @@
 import Head from "next/head";
 import Image from "next/image";
-import { Inter } from "@next/font/google";
-import styles from "@/styles/Home.module.css";
 import React, { useState } from "react";
-import ButtonTheme from "@/components/ButtonTheme";
-import { HiTerminal } from "react-icons/hi";
-import { SiGithub } from "react-icons/si";
 import {
 	Container,
 	Button,
@@ -20,13 +15,11 @@ import AccioResult from "@/components/AccioResult";
 import { SendButton } from "@/components/SendButton";
 import { SendIcon } from "@/components/SendIcon";
 
-const inter = Inter({ subsets: ["latin"] });
-
 export default function Home() {
 	const [generatedText, setGeneratedText] = useState("");
 	const [inputText, setInputText] = useState("");
 
-	const handleSubmit = async (event) => {
+	const handleSubmit = async (event: any) => {
 		const response = await axios.get(
 			`/api/accio?accio_spell_text=${inputText}`
 		);
