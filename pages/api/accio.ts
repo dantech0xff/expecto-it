@@ -11,7 +11,7 @@ export default async function handler(
 		const response = await axios.post(
 			"https://api.openai.com/v1/completions",
 			{				
-				prompt: "" +
+				prompt: "Help me on " +
 				'"' +
 				accio_spell_text +
 				'"' +

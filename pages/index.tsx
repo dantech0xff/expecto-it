@@ -9,6 +9,7 @@ import {
 	Text,
 	Link,
 	Textarea,
+	Loading,
 } from "@nextui-org/react";
 import axios from "axios";
 import AccioResult from "@/components/AccioResult";
@@ -18,13 +19,16 @@ import { SendIcon } from "@/components/SendIcon";
 export default function Home() {
 	const [generatedText, setGeneratedText] = useState("");
 	const [inputText, setInputText] = useState("");
+	const [loading, setLoading] = useState(false);
 
 	const handleSubmit = async (event: any) => {
+		setLoading(true);
 		const response = await axios.get(
 			`/api/accio?accio_spell_text=${inputText}`
 		);
 		console.log(response.data.generatedText);
 		setGeneratedText(response.data.generatedText);
+		setLoading(false);
 	};
 	return (
 		<>
@@ -52,20 +56,28 @@ export default function Home() {
 				<div className="w-full flex justify-center">
 					<Input
 						className="my-4"
-						clearable
+						clearable={loading ? false : true}
+						readOnly={loading ? true : false}
 						bordered
 						size="lg"
 						width="80%"
 						color="primary"
 						type="text"
-						value={inputText}
+						// value={inputText}
 						contentRightStyling={false}
-						onChange={(event) => setInputText(event.target.value)}
+						onChange={(event) => {
+							if(event.target.value == "") {
+								setGeneratedText("")
+							}
+							setInputText(event.target.value)
+						}}
 						placeholder="Summon success with the power of Accio.spell!"
 						contentRight={
+							loading == false ?
 							<SendButton onClick={handleSubmit}>
 								<SendIcon fill="white"></SendIcon>
 							</SendButton>
+							: <Loading size="xs" className="pr-5" />
 						}
 					/>
 				</div>
