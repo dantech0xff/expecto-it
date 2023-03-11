@@ -10,17 +10,16 @@ export default async function handler(
 	try {
 		const response = await axios.post(
 			"https://api.openai.com/v1/completions",
-			{
-				prompt:
-					"I want to know " +
-					'"' +
-					accio_spell_text +
-					'"' +
-					" in 256 words or less",
+			{				
+				prompt: "" +
+				'"' +
+				accio_spell_text +
+				'"' +
+				" in less than 512 words."
+				,
 				model: "text-davinci-003",
-				max_tokens: 350,
-				temperature: 0,
-				stop: ".\n",
+				max_tokens: 900,
+				temperature: 0.1,
 			},
 			{
 				headers: {
@@ -29,7 +28,9 @@ export default async function handler(
 				},
 			}
 		);
+
 		const generatedText = response.data.choices[0].text;
+		console.log(response.data.choices[0]);
 		console.log(response.data);
 		res.status(200).json({ generatedText });
 	} catch (error) {
