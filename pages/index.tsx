@@ -6,6 +6,7 @@ import axios from "axios";
 import AccioResult from "@/components/AccioResult";
 import { SendButton } from "@/components/SendButton";
 import { SendIcon } from "@/components/SendIcon";
+import { TypeAnimation } from "react-type-animation";
 
 export default function Home() {
     const [generatedText, setGeneratedText] = useState("");
@@ -38,10 +39,29 @@ export default function Home() {
                         </span>
                     </h1>
                 </div>
-                <div className="mx-auto py-1 text-gray-500 text-center sm:text-lg">
-                    Experience the magic of Accio in acquiring knowledge
+                <div className="mx-auto py-1 text-gray-900 text-center sm:text-lg">
+                    <TypeAnimation
+                        sequence={[
+                            "Accio acquires knowledge",
+                            1000,
+                            "Accio summons subjects",
+                            1000,
+                            "Accio is funny but smart",
+                            1000,
+                            "Accio is powerful spell",
+                            1000,
+                            "Accio is lazy but magic",
+                            1000,
+                            "Accio is powered by OpenAI",
+                            1000,
+                        ]}
+                        wrapper="span"
+                        deletionSpeed={75}
+                        speed={50}
+                        cursor={true}
+                        repeat={Infinity}
+                    />
                 </div>
-
                 <div className="w-full flex justify-center">
                     <Input
                         className="my-4"
