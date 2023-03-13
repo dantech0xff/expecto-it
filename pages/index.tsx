@@ -1,7 +1,17 @@
 import Head from "next/head";
 import Image from "next/image";
 import React, { useState } from "react";
-import { Container, Button, Input, Spacer, Text, Link, Textarea, Loading } from "@nextui-org/react";
+import {
+    Container,
+    Button,
+    Input,
+    Spacer,
+    Text,
+    Link,
+    Textarea,
+    Loading,
+    Card,
+} from "@nextui-org/react";
 import axios from "axios";
 import AccioResult from "@/components/AccioResult";
 import { SendButton } from "@/components/SendButton";
@@ -9,6 +19,8 @@ import { SendIcon } from "@/components/SendIcon";
 import { TypeAnimation } from "react-type-animation";
 
 export default function Home() {
+    const MAX_SPELL = 255;
+
     const [generatedText, setGeneratedText] = useState("");
     const [inputText, setInputText] = useState("");
     const [loading, setLoading] = useState(false);
@@ -31,7 +43,7 @@ export default function Home() {
 
             <div className="max-w-7xl min-h-[calc(100vh-5rem)] mx-auto py-14 sm:py-20 md:py-24 px-4 sm:px-6 lg:px-8 sm:flex sm:flex-col sm:items-center">
                 <div className="flex justify-center w-full mx-auto">
-                    <h1 className="text-5xl font-extrabold text-gray-900 sm:text-center inline-flex items-center select-none">
+                    <h1 className="text-5xl font-extrabold sm:text-center inline-flex items-center select-none">
                         <span>Accio</span>
                         <span>.</span>
                         <span className="bg-clip-text text-transparent bg-gradient-to-r from-yellow-500 to-red-500">
@@ -39,7 +51,7 @@ export default function Home() {
                         </span>
                     </h1>
                 </div>
-                <div className="mx-auto py-1 text-gray-900 text-center sm:text-lg">
+                <div className="mx-auto py-1 text-center sm:text-lg">
                     <TypeAnimation
                         sequence={[
                             "Accio acquires knowledge",
@@ -62,37 +74,47 @@ export default function Home() {
                         repeat={Infinity}
                     />
                 </div>
-                <div className="w-full flex justify-center">
-                    <Input
-                        className="my-4"
-                        clearable={loading ? false : true}
-                        readOnly={loading ? true : false}
-                        bordered
-                        size="lg"
-                        width="80%"
-                        color="primary"
-                        type="text"
-                        contentRightStyling={false}
-                        onChange={(event) => {
-                            if (event.target.value == "") {
-                                setGeneratedText("");
-                            }
-                            setInputText(event.target.value);
-                        }}
-                        placeholder="Summon success with the power of Accio.spell!"
-                        contentRight={
-                            loading == false ? (
-                                <SendButton onClick={handleSubmit}>
-                                    <SendIcon fill="white"></SendIcon>
-                                </SendButton>
-                            ) : (
-                                <Loading size="xs" className="pr-5" />
-                            )
+                <Input
+                    className="my-4"
+                    readOnly={loading ? true : false}
+                    bordered={false}
+                    animated={false}
+                    shadow={true}
+                    size="lg"
+                    width="100%"
+                    color="primary"
+                    value={inputText}
+                    onChange={(event) => {
+                        if (event.target.value == "") {
+                            setGeneratedText("");
                         }
-                    />
+                        if (event.target.value.length <= MAX_SPELL) {
+                            setInputText(event.target.value);
+                        } else {
+                            setInputText(event.target.value.substring(0, MAX_SPELL));
+                        }
+                    }}
+                    onKeyDown={(event) => {
+                        if (event.key == "Enter") {
+                            handleSubmit(event);
+                        }
+                    }}
+                    placeholder="Type in the power of Accio.Spell"
+                />
+                {/* center the div below */}
+                <div className="flex justify-center w-full mx-auto">
+                    <Button shadow={true} color="gradient" onClick={handleSubmit}>
+                        {loading ? (
+                            <Loading className="m-5" type="points" color="currentColor" size="sm" />
+                        ) : (
+                            <SendIcon className="m-5" fill="white"></SendIcon>
+                        )}
+                        <span>Expecto Patronum!!!!</span>
+                    </Button>
                 </div>
+
                 <AccioResult
-                    className="mx-auto text-justify w-10/12 m-1"
+                    className="mx-auto text-justify m-1"
                     text={generatedText}
                 ></AccioResult>
             </div>
