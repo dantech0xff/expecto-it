@@ -7,11 +7,7 @@ interface AccioResultProps {
 }
 
 const AccioResult: React.FC<AccioResultProps> = ({ text, className }) => {
-    return (
-        <Container className={className}>
-            <p>{text}</p>
-        </Container>
-    );
+    return <Container className={className}>{text}</Container>;
 };
 
 export default AccioResult;

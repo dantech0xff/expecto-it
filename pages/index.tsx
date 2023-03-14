@@ -11,14 +11,16 @@ import {
     Textarea,
     Loading,
     Card,
+    Row,
 } from "@nextui-org/react";
 import axios from "axios";
-import AccioResult from "@/components/AccioResult";
 import { SendIcon } from "@/components/SendIcon";
 import { TypeAnimation } from "react-type-animation";
-import { Progress } from "@nextui-org/react";
 import { CircularProgressbarWithChildren, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
+import { IoCopy } from "react-icons/io5";
+import { HiExternalLink } from "react-icons/hi";
+import { RiBugLine } from "react-icons/ri";
 
 export default function Home() {
     const MAX_SPELL = 64;
@@ -34,6 +36,15 @@ export default function Home() {
         setGeneratedText(response.data.generatedText);
         setLoading(false);
     };
+
+    const handleCopy = (event: any) => {
+        navigator.clipboard.writeText(generatedText);
+    };
+
+    const handleOpenExternal = (event: any) => {};
+
+    const handleReportBug = (event: any) => {};
+
     return (
         <>
             <Head>
@@ -135,10 +146,40 @@ export default function Home() {
                         </div>
                     </Button>
                 </div>
-                <AccioResult
-                    className="mx-auto text-justify m-1"
-                    text={generatedText}
-                ></AccioResult>
+
+                <Spacer y={0.5} />
+                <Card
+                    isHoverable={true}
+                    isPressable={false}
+                    allowTextSelectionOnPress={true}
+                    variant="shadow"
+                    borderWeight={null}
+                >
+                    <Text className="ml-5 mr-5 mt-5">
+                        {inputText.length == 0
+                            ? "Who is your daddy?"
+                            : loading
+                            ? "Magic is happening..."
+                            : generatedText}
+                    </Text>
+
+                    <div className="flex justify-end pb-1 pr-1">
+                        <Button className="mx-0" size={"xs"} auto={true} onClick={handleReportBug}>
+                            <RiBugLine />
+                        </Button>
+                        <Button
+                            className="mx-1"
+                            size={"xs"}
+                            auto={true}
+                            onClick={handleOpenExternal}
+                        >
+                            <HiExternalLink />
+                        </Button>
+                        <Button className="mx-0" size={"xs"} auto={true} onClick={handleCopy}>
+                            <IoCopy></IoCopy>
+                        </Button>
+                    </div>
+                </Card>
             </div>
         </>
     );
