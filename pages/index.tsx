@@ -14,12 +14,14 @@ import {
 } from "@nextui-org/react";
 import axios from "axios";
 import AccioResult from "@/components/AccioResult";
-import { SendButton } from "@/components/SendButton";
 import { SendIcon } from "@/components/SendIcon";
 import { TypeAnimation } from "react-type-animation";
+import { Progress } from "@nextui-org/react";
+import { CircularProgressbarWithChildren, buildStyles } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
 
 export default function Home() {
-    const MAX_SPELL = 255;
+    const MAX_SPELL = 64;
 
     const [generatedText, setGeneratedText] = useState("");
     const [inputText, setInputText] = useState("");
@@ -74,45 +76,65 @@ export default function Home() {
                         repeat={Infinity}
                     />
                 </div>
-                <Input
-                    className="my-4"
-                    readOnly={loading ? true : false}
-                    bordered={false}
-                    animated={false}
-                    shadow={true}
-                    size="lg"
-                    width="100%"
-                    color="primary"
-                    value={inputText}
-                    onChange={(event) => {
-                        if (event.target.value == "") {
-                            setGeneratedText("");
-                        }
-                        if (event.target.value.length <= MAX_SPELL) {
-                            setInputText(event.target.value);
-                        } else {
-                            setInputText(event.target.value.substring(0, MAX_SPELL));
-                        }
-                    }}
-                    onKeyDown={(event) => {
-                        if (event.key == "Enter") {
-                            handleSubmit(event);
-                        }
-                    }}
-                    placeholder="Type in the power of Accio.Spell"
-                />
-                {/* center the div below */}
                 <div className="flex justify-center w-full mx-auto">
-                    <Button shadow={true} color="gradient" onClick={handleSubmit}>
-                        {loading ? (
-                            <Loading className="m-5" type="points" color="currentColor" size="sm" />
-                        ) : (
-                            <SendIcon className="m-5" fill="white"></SendIcon>
-                        )}
-                        <span>Expecto Patronum!!!!</span>
+                    <div className="w-full">
+                        <Input
+                            readOnly={loading ? true : false}
+                            bordered={false}
+                            animated={true}
+                            shadow={true}
+                            size="lg"
+                            width="100%"
+                            color="primary"
+                            value={inputText}
+                            onChange={(event) => {
+                                if (event.target.value == "") {
+                                    setGeneratedText("");
+                                }
+                                if (event.target.value.length <= MAX_SPELL) {
+                                    setInputText(event.target.value);
+                                } else {
+                                    setInputText(event.target.value.substring(0, MAX_SPELL));
+                                }
+                            }}
+                            onKeyDown={(event) => {
+                                if (event.key == "Enter") {
+                                    handleSubmit(event);
+                                }
+                            }}
+                            placeholder="Type in the power of Accio.Spell"
+                        />
+                    </div>
+
+                    <Spacer x={0.3} />
+                    <Button
+                        shadow={true}
+                        animated={true}
+                        auto={true}
+                        color="primary"
+                        onClick={handleSubmit}
+                    >
+                        <div style={{ width: 35, height: 35 }}>
+                            {loading ? (
+                                <Loading type="points" color="currentColor" />
+                            ) : (
+                                // create the div that child items will draw on over others
+                                <CircularProgressbarWithChildren
+                                    strokeWidth={5}
+                                    value={(inputText.length * 100) / MAX_SPELL}
+                                    styles={buildStyles({
+                                        pathColor: `rgba(171, 196, 255, ${1})`,
+                                        trailColor: `rgba(255, 255, 255, ${
+                                            (inputText.length * 100) / MAX_SPELL / 100
+                                        })`,
+                                    })}
+                                >
+                                    <SendIcon />
+                                </CircularProgressbarWithChildren>
+                            )}
+                        </div>
                     </Button>
                 </div>
-
                 <AccioResult
                     className="mx-auto text-justify m-1"
                     text={generatedText}
