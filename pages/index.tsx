@@ -152,12 +152,12 @@ export default function Home() {
                     isHoverable={true}
                     isPressable={false}
                     allowTextSelectionOnPress={true}
-                    variant="shadow"
-                    borderWeight={null}
+                    variant="bordered"
+                    borderWeight={"light"}
                 >
                     <Text className="ml-5 mr-5 mt-5">
                         {inputText.length == 0
-                            ? "Who is your daddy?"
+                            ? "Accio.Spell is a powerful spell that summons knowledge from the internet!"
                             : loading
                             ? "Magic is happening..."
                             : generatedText}
