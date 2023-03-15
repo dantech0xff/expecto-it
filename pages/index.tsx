@@ -12,6 +12,8 @@ import {
     Loading,
     Card,
     Row,
+    Tooltip,
+    Popover,
 } from "@nextui-org/react";
 import axios from "axios";
 import { SendIcon } from "@/components/SendIcon";
@@ -38,12 +40,22 @@ export default function Home() {
     };
 
     const handleCopy = (event: any) => {
-        navigator.clipboard.writeText(generatedText);
+        let resultText = "";
+        generatedText.split("\n").forEach((text) => {
+            if (text.length > 0) {
+                resultText += text + "\r\n";
+            }
+        });
+        navigator.clipboard.writeText(resultText);
     };
 
     const handleOpenExternal = (event: any) => {};
 
-    const handleReportBug = (event: any) => {};
+    const handleReportBug = (event: any) => {
+        // open url in new tab https://forms.gle/xp1WATtqCXp5LBS96
+
+        window.open("https://forms.gle/xp1WATtqCXp5LBS96", "_blank");
+    };
 
     return (
         <>
@@ -59,7 +71,7 @@ export default function Home() {
                     <h1 className="text-5xl font-extrabold sm:text-center inline-flex items-center select-none">
                         <span>Accio</span>
                         <span>.</span>
-                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-yellow-500 to-red-500">
+                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-500">
                             spell!
                         </span>
                     </h1>
@@ -149,35 +161,51 @@ export default function Home() {
 
                 <Spacer y={0.5} />
                 <Card
-                    isHoverable={true}
+                    className="shadow hover:shadow-2xl"
+                    isHoverable={false}
                     isPressable={false}
-                    allowTextSelectionOnPress={true}
                     variant="bordered"
                     borderWeight={"light"}
                 >
-                    <Text className="ml-5 mr-5 mt-5">
+                    <div className="ml-5 mr-5 mt-2">
                         {inputText.length == 0
                             ? "Accio.Spell is a powerful spell that summons knowledge from the internet!"
                             : loading
                             ? "Magic is happening..."
-                            : generatedText}
-                    </Text>
+                            : generatedText.split("\n").map((text, idx) => (
+                                  <div key={idx}>
+                                      <Spacer y={text.length > 0 ? 0.1 : 0} />
+                                      <Text>{text}</Text>
+                                  </div>
+                              ))}
+                    </div>
 
-                    <div className="flex justify-end pb-1 pr-1">
-                        <Button className="mx-0" size={"xs"} auto={true} onClick={handleReportBug}>
-                            <RiBugLine />
-                        </Button>
-                        <Button
-                            className="mx-1"
-                            size={"xs"}
-                            auto={true}
-                            onClick={handleOpenExternal}
-                        >
-                            <HiExternalLink />
-                        </Button>
-                        <Button className="mx-0" size={"xs"} auto={true} onClick={handleCopy}>
-                            <IoCopy></IoCopy>
-                        </Button>
+                    <div className="flex justify-end pb-1 pr-1 pt-1">
+                        <Tooltip content="Report a bug" placement="top">
+                            <Button
+                                className="mx-1"
+                                size={"xs"}
+                                auto={true}
+                                onClick={handleReportBug}
+                            >
+                                <RiBugLine />
+                            </Button>
+                        </Tooltip>
+                        {/* <Tooltip content="Open in new tab" placement="top">
+                            <Button
+                                className="mx-1"
+                                size={"xs"}
+                                auto={true}
+                                onClick={handleOpenExternal}
+                            >
+                                <HiExternalLink />
+                            </Button>
+                        </Tooltip> */}
+                        <Tooltip content="Copy to clipboard" placement="top">
+                            <Button className="mx-0" size={"xs"} auto={true} onClick={handleCopy}>
+                                <IoCopy></IoCopy>
+                            </Button>
+                        </Tooltip>
                     </div>
                 </Card>
             </div>

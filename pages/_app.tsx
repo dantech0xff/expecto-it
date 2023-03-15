@@ -12,6 +12,11 @@ const lightTheme = createTheme({
 
 const darkTheme = createTheme({
     type: "dark",
+    theme: {
+        colors: {
+            background: "#1e1e1e",
+        },
+    },
 });
 
 export default function App({ Component, pageProps }: AppProps) {

@@ -2763,6 +2763,11 @@ react-is@^16.13.1:
   resolved "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
+react-moving-text@^0.0.7:
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/react-moving-text/-/react-moving-text-0.0.7.tgz#afa2e3d6a52cc6707bf869ce4d37d7df04993e75"
+  integrity sha512-WA72if8QS2/QVOmZ2mDnWu1UFkMqt7Y1TFLfKT3MDRwPbcpz2F7WAyGi349anuKth0bQKg0CQddlQLQQiII8zQ==
+
 react-type-animation@^2.1.2:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/react-type-animation/-/react-type-animation-2.1.2.tgz#9a67c87e8e7a5e4ca3411e30cd2fa308365307a4"
