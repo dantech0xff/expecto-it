@@ -23,6 +23,7 @@
     "react-dom": "18.2.0",
     "react-icons": "^4.8.0",
     "react-moving-text": "^0.0.7",
+    "react-spinners-kit": "^1.9.1",
     "react-type-animation": "^2.1.2",
     "typescript": "4.9.5"
   },

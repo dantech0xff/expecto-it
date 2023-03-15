@@ -23,7 +23,7 @@ import "react-circular-progressbar/dist/styles.css";
 import { IoCopy } from "react-icons/io5";
 import { HiExternalLink } from "react-icons/hi";
 import { RiBugLine } from "react-icons/ri";
-
+import { WhisperSpinner, RingSpinner } from "react-spinners-kit";
 export default function Home() {
     const MAX_SPELL = 64;
 
@@ -52,8 +52,6 @@ export default function Home() {
     const handleOpenExternal = (event: any) => {};
 
     const handleReportBug = (event: any) => {
-        // open url in new tab https://forms.gle/xp1WATtqCXp5LBS96
-
         window.open("https://forms.gle/xp1WATtqCXp5LBS96", "_blank");
     };
 
@@ -76,7 +74,7 @@ export default function Home() {
                         </span>
                     </h1>
                 </div>
-                <div className="mx-auto py-1 text-center sm:text-lg">
+                <div className="mx-auto py-2 text-center sm:text-lg bg-clip-text text-transparent bg-gradient-to-r from-blue-300 to-purple-400">
                     <TypeAnimation
                         sequence={[
                             "Accio acquires knowledge",
@@ -109,7 +107,6 @@ export default function Home() {
                             size="lg"
                             width="100%"
                             color="primary"
-                            value={inputText}
                             onChange={(event) => {
                                 if (event.target.value == "") {
                                     setGeneratedText("");
@@ -168,16 +165,49 @@ export default function Home() {
                     borderWeight={"light"}
                 >
                     <div className="ml-5 mr-5 mt-2">
-                        {inputText.length == 0
-                            ? "Accio.Spell is a powerful spell that summons knowledge from the internet!"
-                            : loading
-                            ? "Magic is happening..."
-                            : generatedText.split("\n").map((text, idx) => (
-                                  <div key={idx}>
-                                      <Spacer y={text.length > 0 ? 0.1 : 0} />
-                                      <Text>{text}</Text>
-                                  </div>
-                              ))}
+                        {inputText.length == 0 ? (
+                            <div>
+                                <div className="flex justify-center w-full mx-auto bg-clip-text text-transparent bg-gradient-to-r from-blue-200 to-purple-500 mr-1">
+                                    <TypeAnimation
+                                        sequence={[
+                                            "Accio.Spell is a powerful spell that summons knowledge from the Internet",
+                                        ]}
+                                        wrapper="h3"
+                                        speed={69}
+                                        cursor={false}
+                                        repeat={1}
+                                    />
+                                </div>
+                                <div className="flex justify-center w-full mx-auto">
+                                    <RingSpinner size={24} color="rgba(171, 196, 255, 1)" />
+                                </div>
+                            </div>
+                        ) : loading ? (
+                            <div>
+                                <div className="flex justify-center w-full mx-auto bg-clip-text text-transparent bg-gradient-to-r from-blue-100 to-orange-600">
+                                    <TypeAnimation
+                                        sequence={["Stay tune!!! Magic is happening..."]}
+                                        wrapper="h3"
+                                        speed={36}
+                                        cursor={false}
+                                        repeat={1}
+                                    />
+                                </div>
+                                <div className="flex justify-center w-full mx-auto ">
+                                    <WhisperSpinner size={24} />
+                                </div>
+                            </div>
+                        ) : (
+                            generatedText.split("\n").map((text, idx) => (
+                                <div
+                                    className="w-full mx-auto bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-orange-600"
+                                    key={idx}
+                                >
+                                    <Spacer y={text.length > 0 ? 0.1 : 0} />
+                                    <Text>{text}</Text>
+                                </div>
+                            ))
+                        )}
                     </div>
 
                     <div className="flex justify-end pb-1 pr-1 pt-1">
