@@ -33,7 +33,7 @@ export default function Home() {
 
     const handleSubmit = async (event: any) => {
         setLoading(true);
-        const response = await axios.get(`/api/accio?accio_spell_text=${inputText}`);
+        const response = await axios.get(`/api/expecto?expecto_it=${inputText}`);
         console.log(response.data.generatedText);
         setGeneratedText(response.data.generatedText);
         setLoading(false);
