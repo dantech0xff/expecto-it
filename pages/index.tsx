@@ -58,7 +58,7 @@ export default function Home() {
     return (
         <>
             <Head>
-                <title>accio.how - Lazy but magic</title>
+                <title>Expecto.It - Lazy but magic</title>
                 <meta name="description" content="Powerful spell cast with OpenAI!" />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/favicon.ico" />
@@ -67,32 +67,30 @@ export default function Home() {
             <div className="max-w-7xl min-h-[calc(100vh-5rem)] mx-auto py-14 sm:py-20 md:py-24 px-4 sm:px-6 lg:px-8 sm:flex sm:flex-col sm:items-center">
                 <div className="flex justify-center w-full mx-auto">
                     <h1 className="text-5xl font-extrabold sm:text-center inline-flex items-center select-none">
-                        <span>Accio</span>
+                        <span>Expecto</span>
                         <span>.</span>
                         <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-500">
-                            spell!
+                            it
                         </span>
                     </h1>
                 </div>
                 <div className="mx-auto py-2 text-center sm:text-lg bg-clip-text text-transparent bg-gradient-to-r from-blue-300 to-purple-400">
                     <TypeAnimation
                         sequence={[
-                            "Accio acquires knowledge",
-                            1000,
-                            "Accio summons subjects",
-                            1000,
-                            "Accio is funny but smart",
-                            1000,
-                            "Accio is powerful spell",
-                            1000,
-                            "Accio is lazy but magic",
-                            1000,
-                            "Accio is powered by OpenAI",
-                            1000,
+                            "summons knowledge",
+                            2000,
+                            "acquires subjects",
+                            2000,
+                            "helps you write",
+                            2000,
+                            "is fun and smart",
+                            2000,
+                            "powered by OpenAI",
+                            2000,
                         ]}
-                        wrapper="span"
-                        deletionSpeed={75}
-                        speed={50}
+                        wrapper="h3"
+                        deletionSpeed={69}
+                        speed={69}
                         cursor={true}
                         repeat={Infinity}
                     />
@@ -122,7 +120,7 @@ export default function Home() {
                                     handleSubmit(event);
                                 }
                             }}
-                            placeholder="Type in the power of Accio.Spell"
+                            placeholder="Type in the power of Expecto.it"
                         />
                     </div>
 
@@ -159,7 +157,7 @@ export default function Home() {
                 <Spacer y={0.5} />
                 <Card
                     className="shadow hover:shadow-2xl"
-                    isHoverable={false}
+                    isHoverable={true}
                     isPressable={false}
                     variant="bordered"
                     borderWeight={"light"}
@@ -170,7 +168,7 @@ export default function Home() {
                                 <div className="flex justify-center w-full mx-auto bg-clip-text text-transparent bg-gradient-to-r from-blue-200 to-purple-500 mr-1">
                                     <TypeAnimation
                                         sequence={[
-                                            "Accio.Spell is a powerful spell that summons knowledge from the Internet",
+                                            "Expecto is a powerful spell that summons everything from the Internet",
                                         ]}
                                         wrapper="h3"
                                         speed={69}
@@ -186,7 +184,7 @@ export default function Home() {
                             <div>
                                 <div className="flex justify-center w-full mx-auto bg-clip-text text-transparent bg-gradient-to-r from-blue-100 to-orange-600">
                                     <TypeAnimation
-                                        sequence={["Stay tune!!! Magic is happening..."]}
+                                        sequence={["Stay tune!!! Magic is happening ..."]}
                                         wrapper="h3"
                                         speed={36}
                                         cursor={false}
