@@ -41,11 +41,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     {
                         role: "user",
                         content:
-                            "You are master of the topic me asking, help me explain " +
+                            "You are master of the topic me asking, help me " +
                             '"' +
                             expecto_it +
-                            '"' +
-                            " in 512 words. Please provide some more urls to help me understand the topic better.",
+                            '"',
+                        // + " in 512 words.",
+                        // + "Make sure you provide me 3 valid website blog, wiki or official websites that related to the topic you are explaining."
                     },
                 ],
                 max_tokens: 1024,
