@@ -15,20 +15,19 @@ const ratelimit = new Ratelimit({
 });
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    const identifier = requestIp.getClientIp(req);
-    // console.log(identifier);
-    const result = await ratelimit.limit(identifier);
+    // const identifier = requestIp.getClientIp(req);
+    // const result = await ratelimit.limit(identifier);
 
-    if (!result.success) {
-        res.status(200).json({
-            generatedText:
-                "You're spelling too much at a same time. Stay calm my Wiz, Magic loves you <3!",
-        });
-        return;
-    }
+    // if (!result.success) {
+    //     res.status(200).json({
+    //         generatedText:
+    //             "You're spelling too much at a same time. Stay calm my Wiz, Magic loves you <3!",
+    //     });
+    //     return;
+    // }
 
-    res.setHeader("X-RateLimit-Limit", result.limit);
-    res.setHeader("X-RateLimit-Remaining", result.remaining);
+    // res.setHeader("X-RateLimit-Limit", result.limit);
+    // res.setHeader("X-RateLimit-Remaining", result.remaining);
 
     const { expecto_it } = req.query;
     console.log(req.query);
@@ -45,11 +44,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                             '"' +
                             expecto_it +
                             '"',
-                        // + " in 512 words.",
-                        // + "Make sure you provide me 3 valid website blog, wiki or official websites that related to the topic you are explaining."
                     },
                 ],
-                max_tokens: 1024,
                 temperature: 0.1,
             },
             {
@@ -60,14 +56,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             }
         );
 
-        const generatedText = response.data.choices[0].message.content;
+        let generatedText = response.data.choices[0].message.content;
+        generatedText.trim();
         const costInfo = response.data.usage;
-
-        console.log(response.data.choices[0]);
         console.log(costInfo);
+        console.log(generatedText);
 
         res.status(200).json({ generatedText });
     } catch (error) {
-        res.status(500).json({ error: error });
+        res.status(500).json({
+            generatedText:
+                "You're spelling too much at a same time. Stay calm my Wiz, Magic loves you <3!",
+        });
     }
 }
