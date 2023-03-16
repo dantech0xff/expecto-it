@@ -15,7 +15,7 @@ const ratelimit = new Ratelimit({
 });
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    // const identifier = requestIp.getClientIp(req);
+    const identifier = requestIp.getClientIp(req);
     // const result = await ratelimit.limit(identifier);
 
     // if (!result.success) {
@@ -47,6 +47,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     },
                 ],
                 temperature: 0.1,
+                user: identifier,
             },
             {
                 headers: {

@@ -25,7 +25,7 @@ import { HiExternalLink } from "react-icons/hi";
 import { RiBugLine } from "react-icons/ri";
 import { WhisperSpinner, RingSpinner } from "react-spinners-kit";
 export default function Home() {
-    const MAX_SPELL = 64;
+    const MAX_SPELL = 256;
 
     const [generatedText, setGeneratedText] = useState("");
     const [inputText, setInputText] = useState("");
