@@ -5,6 +5,23 @@ import { useEffect, useState } from "react";
 import { getDocumentTheme } from "@nextui-org/react";
 
 import { Switch, changeTheme, useTheme } from "@nextui-org/react";
+import { initializeApp } from "firebase/app";
+import { getAnalytics, isSupported } from "firebase/analytics";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyD29fpABbWH7TjgPvUDfdOwTOVS1ec68ew",
+    authDomain: "accio-spell.firebaseapp.com",
+    databaseURL: "https://accio-spell-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "accio-spell",
+    storageBucket: "accio-spell.appspot.com",
+    messagingSenderId: "599907816894",
+    appId: "1:599907816894:web:2f11b08f49b394013ed5ef",
+    measurementId: "G-1BMQWQCYCV",
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = isSupported().then((yes) => (yes ? getAnalytics(app) : null));
 
 const lightTheme = createTheme({
     type: "light",
