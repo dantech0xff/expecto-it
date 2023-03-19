@@ -14,6 +14,7 @@ import {
     Row,
     Tooltip,
     Popover,
+    Radio,
 } from "@nextui-org/react";
 import axios from "axios";
 import { SendIcon } from "@/components/SendIcon";
@@ -74,7 +75,7 @@ export default function Home() {
                         </span>
                     </h1>
                 </div>
-                <div className="mx-auto py-2 text-center sm:text-lg bg-clip-text text-transparent bg-gradient-to-r from-blue-300 to-purple-400">
+                <div className="mx-auto pt-2 text-center sm:text-lg bg-clip-text text-transparent bg-gradient-to-r from-blue-300 to-purple-400">
                     <TypeAnimation
                         sequence={[
                             "summons knowledge",
@@ -94,6 +95,19 @@ export default function Home() {
                         cursor={true}
                         repeat={Infinity}
                     />
+                </div>
+                <div className="py-5">
+                    <Radio.Group orientation="horizontal" defaultValue="primary">
+                        <Radio value="primary" color="primary">
+                            Text Prompt
+                        </Radio>
+                        <Radio value="secondary" color="secondary">
+                            Art Generator
+                        </Radio>
+                        <Radio value="success" color="success">
+                            Code Audit
+                        </Radio>
+                    </Radio.Group>
                 </div>
                 <div className="flex justify-center w-full mx-auto">
                     <div className="w-full">
