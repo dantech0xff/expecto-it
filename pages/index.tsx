@@ -4,6 +4,8 @@ import { Radio } from "@nextui-org/react";
 import { TypeAnimation } from "react-type-animation";
 import "react-circular-progressbar/dist/styles.css";
 import TextPromptComponent from "@/components/text-prompt/TextPromptComponent";
+import ImagePromptComponent from "@/components/image-prompt/ImagePromptComponent";
+import CodePromptComponent from "@/components/code-prompt/CodePromptComponent";
 export default function Home() {
     //text, art, code
     const [checkedFeature, setCheckedFeature] = useState("text");
@@ -70,6 +72,10 @@ export default function Home() {
                         textPrompt="What is the meaning of life?"
                         textResult="It's good enough to be!"
                     ></TextPromptComponent>
+                ) : checkedFeature == "art" ? (
+                    <ImagePromptComponent textPrompt={""} />
+                ) : checkedFeature == "code" ? (
+                    <CodePromptComponent textPrompt={""} />
                 ) : (
                     <></>
                 )}
