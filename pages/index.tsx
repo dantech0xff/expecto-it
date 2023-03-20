@@ -9,6 +9,15 @@ import CodePromptComponent from "@/components/code-prompt/CodePromptComponent";
 export default function Home() {
     //text, art, code
     const [checkedFeature, setCheckedFeature] = useState("text");
+
+    const [textPromptState, setTextPromptState] = useState({
+        text: "What is the meaning of life?",
+        textResult: "It's good enough to be :)",
+    });
+
+    let imagePrompt = { text: "", image: "", imageResult: "" };
+    let codePrompt = { text: "", code: "", codeResult: "" };
+
     return (
         <>
             <Head>
@@ -69,8 +78,14 @@ export default function Home() {
                 </div>
                 {checkedFeature == "text" ? (
                     <TextPromptComponent
-                        textPrompt="What is the meaning of life?"
-                        textResult="It's good enough to be!"
+                        textPrompt={textPromptState.text}
+                        textResult={textPromptState.textResult}
+                        updateTextPrompt={(text) => {
+                            textPromptState.text = text;
+                        }}
+                        updateTextResult={(text) => {
+                            textPromptState.textResult = text;
+                        }}
                     ></TextPromptComponent>
                 ) : checkedFeature == "art" ? (
                     <ImagePromptComponent textPrompt={""} />

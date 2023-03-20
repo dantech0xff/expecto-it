@@ -14,12 +14,16 @@ interface TextPromptComponentProps {
     textPrompt: string;
     textResult?: string;
     className?: string;
+    updateTextResult?: (text: string) => void;
+    updateTextPrompt?: (text: string) => void;
 }
 
 const TextPromptComponent: React.FC<TextPromptComponentProps> = ({
     textPrompt,
     textResult,
     className,
+    updateTextPrompt,
+    updateTextResult,
 }) => {
     const [loading, setLoading] = useState(false);
     const [inputText, setInputText] = useState("");
@@ -29,6 +33,9 @@ const TextPromptComponent: React.FC<TextPromptComponentProps> = ({
         setLoading(true);
         const response = await axios.get(`/api/expecto?expecto_it=${inputText}`);
         setGeneratedText(response.data.generatedText);
+        if (updateTextResult) {
+            updateTextResult(response.data.generatedText);
+        }
         setLoading(false);
     };
     const handleCopy = () => {
@@ -80,6 +87,9 @@ const TextPromptComponent: React.FC<TextPromptComponentProps> = ({
                                 setInputText(newInputText);
                             } else {
                                 setInputText(newInputText.substring(0, MAX_SPELL));
+                            }
+                            if (updateTextPrompt) {
+                                updateTextPrompt(newInputText);
                             }
                         }}
                         onKeyDown={(event) => {

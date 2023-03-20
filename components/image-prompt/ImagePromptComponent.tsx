@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Card, Container, Input, Loading, Spacer, Tooltip, Text } from "@nextui-org/react";
+import { Button, Card, Container, Input, Loading, Spacer, Tooltip, Image } from "@nextui-org/react";
 import axios from "axios";
 import { buildStyles, CircularProgressbarWithChildren } from "react-circular-progressbar";
 import { SendIcon } from "../SendIcon";
@@ -23,23 +23,15 @@ const ImagePromptComponent: React.FC<ImagePromptComponentProps> = ({
 }) => {
     const [loading, setLoading] = useState(false);
     const [inputText, setInputText] = useState("");
-    const [generatedText, setGeneratedText] = useState("");
+    const [generatedImage, setGeneratedImage] = useState("");
 
     const handleSubmit = async () => {
         setLoading(true);
-        const response = await axios.get(`/api/expecto?expecto_it=${inputText}`);
-        setGeneratedText(response.data.generatedText);
+        const response = await axios.get(`/api/expecto-image?expecto_it=${inputText}`);
+        setGeneratedImage(response.data.imgUrl);
         setLoading(false);
     };
-    const handleCopy = () => {
-        let resultText = "";
-        generatedText.split("\n").forEach((text) => {
-            if (text.length > 0) {
-                resultText += text + "\r\n";
-            }
-        });
-        navigator.clipboard.writeText(resultText);
-    };
+    const handleCopy = () => {};
 
     const handleReportBug = () => {
         window.open("https://forms.gle/xp1WATtqCXp5LBS96", "_blank");
@@ -47,9 +39,6 @@ const ImagePromptComponent: React.FC<ImagePromptComponentProps> = ({
     const inputRef = React.useRef<HTMLInputElement>(null);
 
     useEffect(() => {
-        if (textResult) {
-            setGeneratedText(textResult);
-        }
         if (textPrompt) {
             setInputText(textPrompt);
         }
@@ -69,7 +58,6 @@ const ImagePromptComponent: React.FC<ImagePromptComponentProps> = ({
                         bordered={false}
                         animated={true}
                         shadow={true}
-                        clearable={true}
                         size="lg"
                         width="100%"
                         color="primary"
@@ -163,13 +151,12 @@ const ImagePromptComponent: React.FC<ImagePromptComponentProps> = ({
                             </div>
                         </div>
                     ) : (
-                        generatedText.split("\n").map((text, idx) => (
+                        generatedImage.split("\n").map((text, idx) => (
                             <div
                                 className="w-full mx-auto bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-orange-600"
                                 key={idx}
                             >
-                                <Spacer y={text.length > 0 ? 0.1 : 0} />
-                                <Text>{text}</Text>
+                                <Image width={1024} height={1024} alt="Image from AI" src={text} />
                             </div>
                         ))
                     )}
