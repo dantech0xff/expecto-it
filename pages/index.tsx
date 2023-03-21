@@ -11,8 +11,8 @@ export default function Home() {
     const [checkedFeature, setCheckedFeature] = useState("text");
 
     const [textPromptState, setTextPromptState] = useState({
-        text: "What is the meaning of life?",
-        textResult: "It's good enough to be :)",
+        text: "",
+        textResult: "",
     });
 
     let imagePrompt = { text: "", image: "", imageResult: "" };

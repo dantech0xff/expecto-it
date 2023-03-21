@@ -1,5 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Button, Card, Container, Input, Loading, Spacer, Tooltip, Text } from "@nextui-org/react";
+import {
+    Button,
+    Card,
+    Container,
+    Row,
+    Col,
+    Textarea,
+    Loading,
+    Spacer,
+    Tooltip,
+    Text,
+} from "@nextui-org/react";
 import axios from "axios";
 import { buildStyles, CircularProgressbarWithChildren } from "react-circular-progressbar";
 import { SendIcon } from "../SendIcon";
@@ -7,8 +18,9 @@ import { IoCopy } from "react-icons/io5";
 import { RiBugLine } from "react-icons/ri";
 import { RingSpinner, WhisperSpinner } from "react-spinners-kit";
 import { TypeAnimation } from "react-type-animation";
+import TypingText from "../TypingText";
 
-const MAX_SPELL = 256;
+const MAX_SPELL = 512;
 
 interface TextPromptComponentProps {
     textPrompt: string;
@@ -51,10 +63,10 @@ const TextPromptComponent: React.FC<TextPromptComponentProps> = ({
     const handleReportBug = () => {
         window.open("https://forms.gle/xp1WATtqCXp5LBS96", "_blank");
     };
-    const inputRef = React.useRef<HTMLInputElement>(null);
+    const inputRef = React.useRef<HTMLTextAreaElement>(null);
 
     useEffect(() => {
-        if (textResult) {
+        if (textResult && textResult != "") {
             setGeneratedText(textResult);
         }
         if (textPrompt) {
@@ -69,14 +81,13 @@ const TextPromptComponent: React.FC<TextPromptComponentProps> = ({
         <Container className={className}>
             <div className="flex justify-center w-full mx-auto">
                 <div className="w-full">
-                    <Input
+                    <Textarea
                         ref={inputRef}
                         aria-label="input-prompt-text"
                         readOnly={loading ? true : false}
                         bordered={false}
                         animated={true}
                         shadow={true}
-                        clearable={true}
                         size="lg"
                         width="100%"
                         color="primary"
@@ -92,12 +103,9 @@ const TextPromptComponent: React.FC<TextPromptComponentProps> = ({
                                 updateTextPrompt(newInputText);
                             }
                         }}
-                        onKeyDown={(event) => {
-                            if (event.key == "Enter") {
-                                handleSubmit();
-                            }
-                        }}
-                        placeholder="Type in the power of Expecto.it"
+                        minRows={1}
+                        maxRows={10}
+                        placeholder="What is the meaning of life?"
                     />
                 </div>
 
@@ -140,48 +148,41 @@ const TextPromptComponent: React.FC<TextPromptComponentProps> = ({
                 borderWeight={"light"}
             >
                 <div className="ml-5 mr-5 mt-2">
-                    {inputText.length == 0 ? (
+                    {loading ? (
+                        <Container>
+                            <Row justify="center" align="center">
+                                <div className="flex justify-center w-full mx-auto bg-clip-text text-transparent bg-gradient-to-r from-blue-100 to-orange-600 mr-1">
+                                    <TypeAnimation
+                                        sequence={["Stay tune!!! Magic is happening ...", 1000]}
+                                        wrapper="h2"
+                                        speed={50}
+                                        repeat={1}
+                                    />
+                                </div>
+                            </Row>
+                            <Row justify="center" align="center">
+                                <WhisperSpinner size={50} />
+                            </Row>
+                        </Container>
+                    ) : generatedText.length == 0 ? (
                         <div>
                             <div className="flex justify-center w-full mx-auto bg-clip-text text-transparent bg-gradient-to-r from-blue-200 to-purple-500 mr-1">
                                 <TypeAnimation
                                     sequence={[
-                                        "Expecto is a powerful spell that summons everything from the Internet",
+                                        "Write down your concerns and let Expecto do the rest ...",
+                                        1000,
                                     ]}
-                                    wrapper="h3"
-                                    speed={69}
-                                    cursor={false}
+                                    wrapper="h2"
+                                    speed={50}
                                     repeat={1}
                                 />
                             </div>
                             <div className="flex justify-center w-full mx-auto">
-                                <RingSpinner size={24} color="rgba(171, 196, 255, 1)" />
-                            </div>
-                        </div>
-                    ) : loading ? (
-                        <div>
-                            <div className="flex justify-center w-full mx-auto bg-clip-text text-transparent bg-gradient-to-r from-blue-100 to-orange-600">
-                                <TypeAnimation
-                                    sequence={["Stay tune!!! Magic is happening ..."]}
-                                    wrapper="h3"
-                                    speed={36}
-                                    cursor={false}
-                                    repeat={1}
-                                />
-                            </div>
-                            <div className="flex justify-center w-full mx-auto ">
-                                <WhisperSpinner size={24} />
+                                <RingSpinner size={50} color="rgba(171, 196, 255, 1)" />
                             </div>
                         </div>
                     ) : (
-                        generatedText.split("\n").map((text, idx) => (
-                            <div
-                                className="w-full mx-auto bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-orange-600"
-                                key={idx}
-                            >
-                                <Spacer y={text.length > 0 ? 0.1 : 0} />
-                                <Text>{text}</Text>
-                            </div>
-                        ))
+                        <TypingText text={generatedText}></TypingText>
                     )}
                 </div>
 
