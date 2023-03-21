@@ -49,67 +49,6 @@ const ImagePromptComponent: React.FC<ImagePromptComponentProps> = ({
 
     return (
         <Container className={className}>
-            <div className="flex justify-center w-full mx-auto">
-                <div className="w-full">
-                    <Input
-                        ref={inputRef}
-                        aria-label="input-prompt-text"
-                        readOnly={loading ? true : false}
-                        bordered={false}
-                        animated={true}
-                        shadow={true}
-                        size="lg"
-                        width="100%"
-                        color="primary"
-                        maxLength={MAX_SPELL}
-                        onChange={(event) => {
-                            const newInputText = event.target.value;
-                            if (event.target.value.length <= MAX_SPELL) {
-                                setInputText(newInputText);
-                            } else {
-                                setInputText(newInputText.substring(0, MAX_SPELL));
-                            }
-                        }}
-                        onKeyDown={(event) => {
-                            if (event.key == "Enter") {
-                                handleSubmit();
-                            }
-                        }}
-                        placeholder="Type in the power of Expecto.it"
-                    />
-                </div>
-
-                <Spacer x={0.3} />
-                <Button
-                    shadow={true}
-                    animated={true}
-                    auto={true}
-                    color="primary"
-                    onClick={handleSubmit}
-                >
-                    <div style={{ width: 35, height: 35 }}>
-                        {loading ? (
-                            <Loading type="points" color="currentColor" />
-                        ) : (
-                            // create the div that child items will draw on over others
-                            <CircularProgressbarWithChildren
-                                strokeWidth={5}
-                                value={(inputText.length * 100) / MAX_SPELL}
-                                styles={buildStyles({
-                                    pathColor: `rgba(171, 196, 255, ${1})`,
-                                    trailColor: `rgba(255, 255, 255, ${
-                                        (inputText.length * 100) / MAX_SPELL / 100
-                                    })`,
-                                })}
-                            >
-                                <SendIcon />
-                            </CircularProgressbarWithChildren>
-                        )}
-                    </div>
-                </Button>
-            </div>
-
-            <Spacer y={0.5} />
             <Card
                 className="shadow hover:shadow-2xl"
                 isHoverable={true}
@@ -123,16 +62,19 @@ const ImagePromptComponent: React.FC<ImagePromptComponentProps> = ({
                             <div className="flex justify-center w-full mx-auto bg-clip-text text-transparent bg-gradient-to-r from-blue-200 to-purple-500 mr-1">
                                 <TypeAnimation
                                     sequence={[
-                                        "Expecto is a powerful spell that summons everything from the Internet",
+                                        "Artificial Intelligence is the new magic",
+                                        3000,
+                                        "Art Generator is under construction",
+                                        3000,
                                     ]}
-                                    wrapper="h3"
+                                    wrapper="h2"
                                     speed={69}
                                     cursor={false}
                                     repeat={1}
                                 />
                             </div>
                             <div className="flex justify-center w-full mx-auto">
-                                <RingSpinner size={24} color="rgba(171, 196, 255, 1)" />
+                                <RingSpinner size={50} color="rgba(171, 196, 255, 1)" />
                             </div>
                         </div>
                     ) : loading ? (
