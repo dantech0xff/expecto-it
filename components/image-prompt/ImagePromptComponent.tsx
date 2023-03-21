@@ -106,13 +106,25 @@ const ImagePromptComponent: React.FC<ImagePromptComponentProps> = ({
 
                 <div className="flex justify-end pb-1 pr-1 pt-1">
                     <Tooltip content="Report a bug" placement="top">
-                        <Button className="mx-1" size={"xs"} auto={true} onClick={handleReportBug}>
+                        <Button
+                            color={"secondary"}
+                            className="mx-1"
+                            size={"xs"}
+                            auto={true}
+                            onClick={handleReportBug}
+                        >
                             <RiBugLine />
                         </Button>
                     </Tooltip>
 
                     <Tooltip content="Copy to clipboard" placement="top">
-                        <Button className="mx-0" size={"xs"} auto={true} onClick={handleCopy}>
+                        <Button
+                            color={"secondary"}
+                            className="mx-0"
+                            size={"xs"}
+                            auto={true}
+                            onClick={handleCopy}
+                        >
                             <IoCopy></IoCopy>
                         </Button>
                     </Tooltip>
