@@ -1,6 +1,6 @@
 import Head from "next/head";
 import React, { useState } from "react";
-import { Radio } from "@nextui-org/react";
+import { Radio, Text } from "@nextui-org/react";
 import { TypeAnimation } from "react-type-animation";
 import "react-circular-progressbar/dist/styles.css";
 import TextPromptComponent from "@/components/text-prompt/TextPromptComponent";
@@ -66,13 +66,13 @@ export default function Home() {
                         onChange={setCheckedFeature}
                     >
                         <Radio value="text" color="primary">
-                            Text Prompt
+                            <Text>Text</Text>
                         </Radio>
                         <Radio value="art" color="secondary">
-                            Art Generator
+                            <Text>Art</Text>
                         </Radio>
                         <Radio value="code" color="success">
-                            Code Audit
+                            <Text>Code</Text>
                         </Radio>
                     </Radio.Group>
                 </div>
