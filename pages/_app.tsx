@@ -1,11 +1,15 @@
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
+import type { Session } from "next-auth";
+import { SessionProvider } from "next-auth/react";
+
 import { createTheme, NextUIProvider, useSSR } from "@nextui-org/react";
 import { useEffect, useState } from "react";
 
 import { Switch } from "@nextui-org/react";
 import { initializeApp } from "firebase/app";
 import { getAnalytics, isSupported } from "firebase/analytics";
+import LayoutWrapper from "@/components/LayoutWrapper";
 
 const firebaseConfig = {
     apiKey: "AIzaSyD29fpABbWH7TjgPvUDfdOwTOVS1ec68ew",
@@ -35,34 +39,29 @@ const darkTheme = createTheme({
     },
 });
 
-export default function App({ Component, pageProps }: AppProps) {
+export default function App({
+    Component,
+    pageProps: { session, ...pageProps },
+}: AppProps<{ session: Session }>) {
     const [isDarkTheme, setIsDarkTheme] = useState(true);
     const { isBrowser } = useSSR();
 
-    useEffect(() => {
-        let theme = window.localStorage.getItem("data-theme");
-        setIsDarkTheme(theme === "dark");
-    }, []);
-
-    const handleChange = () => {
-        const nextTheme = isDarkTheme ? "light" : "dark";
-        window.localStorage.setItem("data-theme", nextTheme);
-        setIsDarkTheme(!isDarkTheme);
+    const handleChange = (isDark: boolean) => {
+        setIsDarkTheme(isDark);
     };
     return (
         isBrowser && (
-            <NextUIProvider theme={isDarkTheme ? darkTheme : lightTheme}>
-                <div className="flex justify-end">
-                    <Switch
-                        className="m-4"
-                        size="xs"
-                        shadow={true}
-                        checked={isDarkTheme}
-                        onChange={handleChange}
-                    />
-                </div>
-                <Component {...pageProps} />
-            </NextUIProvider>
+            <SessionProvider session={session}>
+                <NextUIProvider theme={isDarkTheme ? darkTheme : lightTheme}>
+                    <LayoutWrapper
+                        onChangeTheme={(isDark) => {
+                            handleChange(isDark);
+                        }}
+                    >
+                        <Component {...pageProps} />
+                    </LayoutWrapper>
+                </NextUIProvider>
+            </SessionProvider>
         )
     );
 }
