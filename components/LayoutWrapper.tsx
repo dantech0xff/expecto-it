@@ -155,7 +155,7 @@ const LayoutWrapper: React.FC<LayoutWrapperProps> = ({ className, children, onCh
                         <Text>Sign in</Text>
                     </Navbar.Link>
                     <Navbar.Item>
-                        <Button color={"gradient"} auto as={Link} href="#">
+                        <Button shadow color={"secondary"} auto as={Link} href="#">
                             <Text>Sign up for free</Text>
                         </Button>
                     </Navbar.Item>
